@@ -2,12 +2,10 @@ package com.gmail.sergii_tymofieiev.backendlesstodo.gui;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -23,6 +21,7 @@ import java.util.ArrayList;
 public class TodoItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<IDataItem> itemsList;
     private ItemsAdapterListener itemsAdapterListener;
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
@@ -35,8 +34,8 @@ public class TodoItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
         int currentPosition = position;
         IDataItem item = itemsList.get(position);
-        if(item != null){
-            ItemViewHolder holder =  (ItemViewHolder) viewHolder;
+        if (item != null) {
+            ItemViewHolder holder = (ItemViewHolder) viewHolder;
             holder.data = item;
             holder.checkBoxView.setChecked(item.isDone());
             holder.hText0.setText(item.getNotes());
@@ -44,13 +43,16 @@ public class TodoItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             holder.hRightTextView.setText(R.string.btn_delete);
         }
     }
+
     public void removeItem(IDataItem item) {
         removeItem(itemsList.indexOf(item));
     }
+
     @Override
     public int getItemCount() {
-        return itemsList==null?0:itemsList.size();
+        return itemsList == null ? 0 : itemsList.size();
     }
+
     @Override
     public long getItemId(int position) {
         return position;
@@ -59,9 +61,11 @@ public class TodoItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void addItems(ArrayList<IDataItem> itemsList) {
         this.itemsList = itemsList;
     }
-    public void setItemsAdapterListener(ItemsAdapterListener itemsAdapterListener){
+
+    public void setItemsAdapterListener(ItemsAdapterListener itemsAdapterListener) {
         this.itemsAdapterListener = itemsAdapterListener;
     }
+
     public void removeItem(int position) {
         if (position > -1 && position < itemsList.size()) {
             itemsList.remove(position);
@@ -69,7 +73,7 @@ public class TodoItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-    public class ItemViewHolder extends RecyclerItemTouchHelper.TouchHelperViewHolder{
+    public class ItemViewHolder extends RecyclerItemTouchHelper.TouchHelperViewHolder {
 
         TextView hText0, hText1;
         TextView hRightTextView;
@@ -93,7 +97,7 @@ public class TodoItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(itemsAdapterListener!=null){
+                    if (itemsAdapterListener != null) {
                         itemsAdapterListener.onItemClick(data, getAdapterPosition());
                     }
                 }
@@ -108,7 +112,7 @@ public class TodoItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     }
 
-    public interface ItemsAdapterListener<T extends Object>{
+    public interface ItemsAdapterListener<T extends Object> {
         void onItemClick(T itemData, int position);
     }
 }

@@ -10,9 +10,10 @@ import com.gmail.sergii_tymofieiev.backendlesstodo.common.Utils;
 /*
  * @author Sergii Tymofieiev on 13.11.2018
  */
-public class RegistrationViewPresenter implements IRegistrationViewPresenter{
+public class RegistrationViewPresenter implements IRegistrationViewPresenter {
     IRegistrationView iView;
-    public RegistrationViewPresenter(IRegistrationView iView){
+
+    public RegistrationViewPresenter(IRegistrationView iView) {
         this.iView = iView;
     }
 
@@ -28,11 +29,11 @@ public class RegistrationViewPresenter implements IRegistrationViewPresenter{
     @Override
     public void onButtonClick(String inputString) {
         // TODO confirm dialog
-        if(!TextUtils.isEmpty(inputString)){
+        if (!TextUtils.isEmpty(inputString)) {
             // TODO strong hash generator or something other
-            SharedPreferencesWrapper.putString(App.getContext(),Constants.SP_KEY_PHONE_AS_HASH, String.valueOf(inputString.hashCode()));
+            SharedPreferencesWrapper.putString(App.getContext(), Constants.SP_KEY_PHONE_AS_HASH, String.valueOf(inputString.hashCode()));
             iView.finishRegistration();
-        }else {
+        } else {
             // TODO show alert dialog;
         }
 

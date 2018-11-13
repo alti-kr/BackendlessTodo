@@ -1,6 +1,5 @@
 package com.gmail.sergii_tymofieiev.backendlesstodo.gui;
 
-import android.provider.ContactsContract;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -35,17 +34,16 @@ public class MainViewPresenter implements IMainViewPresenter {
     private EditItemView editView;
     private TodoItemsAdapter.ItemsAdapterListener adapterListListener;
 
-    public MainViewPresenter(IMainView iView){
+    public MainViewPresenter(IMainView iView) {
         this.iView = iView;
         Backendless.setUrl(Constants.SERVER_URL);
         Backendless.initApp(App.getContext(), Constants.APPLICATION_ID, Constants.API_KEY);
-        Backendless.Persistence.mapTableToClass( "InvertersData", DataItem.class );
     }
 
 
     @Override
     public View.OnClickListener getFabOnClickListener() {
-        if(fabOnClickListener == null){
+        if (fabOnClickListener == null) {
             fabOnClickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -59,17 +57,17 @@ public class MainViewPresenter implements IMainViewPresenter {
 
     @Override
     public void onSettingsClick() {
-
+        // TODO show settings
     }
 
     @Override
     public int getCheckedMenuInd() {
-        return SharedPreferencesWrapper.getInt(App.getContext(),Constants.SP_KEY_FILTER_INDEX,0);
+        return SharedPreferencesWrapper.getInt(App.getContext(), Constants.SP_KEY_FILTER_INDEX, 0);
     }
 
     @Override
     public void onFilterChanged(int indFilter) {
-        SharedPreferencesWrapper.putInt(App.getContext(),Constants.SP_KEY_FILTER_INDEX,indFilter);
+        SharedPreferencesWrapper.putInt(App.getContext(), Constants.SP_KEY_FILTER_INDEX, indFilter);
         makeContent();
     }
 
@@ -77,19 +75,18 @@ public class MainViewPresenter implements IMainViewPresenter {
     public void makeContent() {
         DataQueryBuilder dataQueryBuilder = DataItemFactory.getDataQueryBuilder(getCheckedMenuInd(), DataItemFactory.SORT_DIRECTION.TIME_ASC);
 
-        Backendless.Data.of(Constants.DATA_TABLE_NAME).find( dataQueryBuilder,
-                new AsyncCallback<List<Map>>()
-                {
+        Backendless.Data.of(Constants.DATA_TABLE_NAME).find(dataQueryBuilder,
+                new AsyncCallback<List<Map>>() {
                     @Override
-                    public void handleResponse( List<Map> response ){
+                    public void handleResponse(List<Map> response) {
                         processResponse(response);
 
                     }
 
                     @Override
-                    public void handleFault( BackendlessFault fault ){
+                    public void handleFault(BackendlessFault fault) {
                         // TODO something
-                        Log.d("My_log","handleFault = "+ fault);
+                        Log.d("My_log", "handleFault = " + fault);
                         // use the getCode(), getMessage() or getDetail() on the fault object
                         // to see the details of the error
                     }
@@ -104,7 +101,7 @@ public class MainViewPresenter implements IMainViewPresenter {
 
     @Override
     public RecyclerView.Adapter getItemsListAdapter() {
-        if(itemsListAdapter == null){
+        if (itemsListAdapter == null) {
             itemsListAdapter = new TodoItemsAdapter();
             itemsListAdapter.setItemsAdapterListener(getAdapterListListener());
         }
@@ -112,7 +109,7 @@ public class MainViewPresenter implements IMainViewPresenter {
     }
 
     private TodoItemsAdapter.ItemsAdapterListener getAdapterListListener() {
-        if(adapterListListener == null){
+        if (adapterListListener == null) {
             adapterListListener = new TodoItemsAdapter.ItemsAdapterListener() {
                 @Override
                 public void onItemClick(Object itemData, int position) {
@@ -138,13 +135,12 @@ public class MainViewPresenter implements IMainViewPresenter {
     }
 
 
-
     private void onFabClick() {
         showEditView(null);
     }
 
-    private void showEditView(IDataItem dataItem){
-        if(editView != null){
+    private void showEditView(IDataItem dataItem) {
+        if (editView != null) {
             return;
         }
         editView = new EditItemView.Builder()
@@ -154,7 +150,7 @@ public class MainViewPresenter implements IMainViewPresenter {
                 .setButtonText0(Utils.getStringById(R.string.btn_ok))
                 .setButtonText1(Utils.getStringById(R.string.btn_cancel))
                 .setHeaderText(Utils.getStringById(R.string.edit_item_header))
-               .setDataItem(dataItem)
+                .setDataItem(dataItem)
                 .setOnClickListener(new EditItemView.IEditViewClickListener() {
                     @Override
                     public void onHeaderButton0Click() {
@@ -201,7 +197,7 @@ public class MainViewPresenter implements IMainViewPresenter {
 
             @Override
             public void handleFault(BackendlessFault fault) {
-               // TODO something
+                // TODO something
             }
         });
     }
@@ -209,9 +205,8 @@ public class MainViewPresenter implements IMainViewPresenter {
     private void removeItem(IDataItem itemData) {
         itemsListAdapter.removeItem(itemData);
         final IDataStore<Map> testTableDataStore = Backendless.Data.of(Constants.DATA_TABLE_NAME);
-        testTableDataStore.save( DataItemFactory.dataItemToMap(itemData), new AsyncCallback<Map>() {
-            public void handleResponse( Map savedContact )
-            {
+        testTableDataStore.save(DataItemFactory.dataItemToMap(itemData), new AsyncCallback<Map>() {
+            public void handleResponse(Map savedContact) {
                 testTableDataStore.remove(savedContact, new AsyncCallback<Long>() {
                     @Override
                     public void handleResponse(Long response) {
@@ -224,9 +219,9 @@ public class MainViewPresenter implements IMainViewPresenter {
                     }
                 });
             }
+
             @Override
-            public void handleFault( BackendlessFault fault )
-            {
+            public void handleFault(BackendlessFault fault) {
                 // TODO something
             }
         });

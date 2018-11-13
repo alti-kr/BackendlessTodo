@@ -23,6 +23,7 @@ public class EditItemView extends BottomSheetDialogCommon {
     private EditText notesView;
     private CheckBox checkBoxView;
     private TextView dateView;
+
     @Override
     protected void setContent() {
         Utils.getViewByLayoutId(App.getContext(), R.layout.item_edit_view, contentContainer, true);
@@ -34,11 +35,11 @@ public class EditItemView extends BottomSheetDialogCommon {
         notesView = mainView.findViewById(R.id.edit_text_item);
         checkBoxView = mainView.findViewById(R.id.item_done);
         dateView = mainView.findViewById(R.id.time_item);
-        if(dataItem != null){
+        if (dataItem != null) {
             notesView.setText(dataItem.getNotes());
             checkBoxView.setChecked(dataItem.isDone());
             dateView.setText(DateUtils.getFormattedDateAsString(DateUtils.DateFormatCustom.ddMMyyyy_HHmm, dataItem.getTimestamp()));
-        }else {
+        } else {
             dateView.setText(DateUtils.getFormattedDateAsString(DateUtils.DateFormatCustom.ddMMyyyy_HHmm, System.currentTimeMillis()));
         }
 
@@ -69,11 +70,11 @@ public class EditItemView extends BottomSheetDialogCommon {
     }
 
     private void processData() {
-        if(TextUtils.isEmpty(notesView.getText().toString())){
-            Utils.makeToast(App.getContext(), R.string.input_item_error,Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(notesView.getText().toString())) {
+            Utils.makeToast(App.getContext(), R.string.input_item_error, Toast.LENGTH_SHORT).show();
             return;
         }
-        if(dataItem == null){
+        if (dataItem == null) {
             dataItem = new DataItem();
         }
 
@@ -82,7 +83,7 @@ public class EditItemView extends BottomSheetDialogCommon {
         dataItem.setDone(checkBoxView.isChecked());
 
         if (dialogClickListener != null) {
-            ((IEditViewClickListener)dialogClickListener).onButton0Click(dataItem);
+            ((IEditViewClickListener) dialogClickListener).onButton0Click(dataItem);
         }
     }
 
@@ -100,10 +101,12 @@ public class EditItemView extends BottomSheetDialogCommon {
             this.dataItem = dataItem;
             return this;
         }
+
         public Builder setHeaderVisibility(int visibility) {
             super.setHeaderVisibility(visibility);
             return this;
         }
+
         public Builder setButtonsVisibility(int visibility) {
             super.setButtonsVisibility(visibility);
             return this;
@@ -113,6 +116,7 @@ public class EditItemView extends BottomSheetDialogCommon {
             super.setCancelable(isCancelable);
             return this;
         }
+
         public Builder setOnClickListener(IDialogClickListener dialogClickListener) {
             super.setOnClickListener(dialogClickListener);
             return this;
@@ -122,10 +126,12 @@ public class EditItemView extends BottomSheetDialogCommon {
             super.setButtonText0(buttonText);
             return this;
         }
+
         public Builder setButtonText1(String buttonText) {
             super.setButtonText1(buttonText);
             return this;
         }
+
         public EditItemView build() {
             EditItemView dialog = new EditItemView();
             dialog.isCancelable = isCancelable;
@@ -140,7 +146,7 @@ public class EditItemView extends BottomSheetDialogCommon {
         }
     }
 
-    public interface IEditViewClickListener extends IDialogClickListener{
+    public interface IEditViewClickListener extends IDialogClickListener {
         void onButton0Click(IDataItem dataItem);
     }
 }

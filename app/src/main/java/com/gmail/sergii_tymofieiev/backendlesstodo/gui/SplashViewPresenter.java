@@ -14,15 +14,16 @@ import com.gmail.sergii_tymofieiev.backendlesstodo.common.SharedPreferencesWrapp
  */
 public class SplashViewPresenter implements ISplashViewPresenter {
     private static final int WHAT = 0;
-    private static final long TIMEOUT = 1000;
+    private static final long TIMEOUT = 2000;
     ISplashView iView;
-    public SplashViewPresenter(ISplashView iView){
+
+    public SplashViewPresenter(ISplashView iView) {
         this.iView = iView;
     }
 
     @Override
     public void onResume() {
-        workHandler.sendEmptyMessageDelayed(WHAT,TIMEOUT);
+        workHandler.sendEmptyMessageDelayed(WHAT, TIMEOUT);
     }
 
 
@@ -37,7 +38,7 @@ public class SplashViewPresenter implements ISplashViewPresenter {
 
     private void afterSplash() {
         Intent startIntent;
-        if(TextUtils.isEmpty(SharedPreferencesWrapper.getString(App.getContext(),Constants.SP_KEY_PHONE_AS_HASH,""))) {
+        if (TextUtils.isEmpty(SharedPreferencesWrapper.getString(App.getContext(), Constants.SP_KEY_PHONE_AS_HASH, ""))) {
             startIntent = new Intent(App.getContext(), RegistrationAct.class);
         } else {
             startIntent = new Intent(App.getContext(), MainAct.class);

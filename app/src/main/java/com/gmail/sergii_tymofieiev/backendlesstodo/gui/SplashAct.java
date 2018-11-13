@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.gmail.sergii_tymofieiev.backendlesstodo.R;
+
 /*
  * @author Sergii Tymofieiev on 13.11.2018
  */
-public class SplashAct extends Activity implements ISplashView{
+public class SplashAct extends Activity implements ISplashView {
     ISplashViewPresenter presenter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +27,7 @@ public class SplashAct extends Activity implements ISplashView{
 
     @Override
     public void startView(Intent startIntent) {
-        if(startIntent != null){
+        if (startIntent != null) {
             startActivity(startIntent);
             finish();
         }

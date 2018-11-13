@@ -11,13 +11,15 @@ import android.widget.EditText;
 
 import com.gmail.sergii_tymofieiev.backendlesstodo.App;
 import com.gmail.sergii_tymofieiev.backendlesstodo.R;
+
 /*
  * @author Sergii Tymofieiev on 13.11.2018
  */
-public class RegistrationAct extends FragmentActivity implements  IRegistrationView{
+public class RegistrationAct extends FragmentActivity implements IRegistrationView {
     private EditText editPhoneNumber;
     private Button button0;
     private IRegistrationViewPresenter presenter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

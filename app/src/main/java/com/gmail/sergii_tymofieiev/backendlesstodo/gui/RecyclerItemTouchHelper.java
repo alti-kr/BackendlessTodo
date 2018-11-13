@@ -21,7 +21,7 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
 
     @Override
     public int getSwipeDirs(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-        if(((ITouchHelperViewHolder) viewHolder).isSwipeable()){
+        if (((ITouchHelperViewHolder) viewHolder).isSwipeable()) {
             return super.getSwipeDirs(recyclerView, viewHolder);
         }
         return 0;
@@ -77,13 +77,15 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
         return super.convertToAbsoluteDirection(flags, layoutDirection);
     }
 
-    public interface RecyclerItemTouchHelperListener <T extends Object>{
+    public interface RecyclerItemTouchHelperListener<T extends Object> {
         void onSwiped(T itemData, int position);
     }
 
-    public interface ITouchHelperViewHolder{
-        boolean  isSwipeable();
+    public interface ITouchHelperViewHolder {
+        boolean isSwipeable();
+
         View getViewForeground();
+
         <T extends Object> T getItemData();
 
     }
@@ -98,17 +100,19 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
         public TouchHelperViewHolder(View itemView) {
             super(itemView);
         }
+
         @Override
         public T getItemData() {
             return data;
         }
+
         @Override
         public View getViewForeground() {
             return foregroundView;
         }
 
         @Override
-        public boolean  isSwipeable(){
+        public boolean isSwipeable() {
             return isSwipeable;
         }
     }

@@ -14,8 +14,10 @@ public interface IMainViewPresenter {
     int getCheckedMenuInd();
 
     void onFilterChanged(int indFilter);
+
     void makeContent();
 
     RecyclerView.Adapter getItemsListAdapter();
+
     RecyclerItemTouchHelper.RecyclerItemTouchHelperListener getRecyclerItemTouchHelperListener();
 }

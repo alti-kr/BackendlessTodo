@@ -7,11 +7,6 @@ import java.util.Date;
  * @author Sergii Tymofieiev on 13.11.2018
  */
 public class DateUtils {
-    public static long SECOND = 1000;
-    public static long MINUTE = SECOND*60;
-    public static long HOUR = MINUTE*60;
-    public static long DAY = 24 * 3600000;
-
     public enum DateFormatCustom {
         ddMMyyyy_HHmmss("dd.MM.yyyy HH:mm:ss"),
         ddMMyyyy_HHmm("dd.MM.yyyy HH:mm"),

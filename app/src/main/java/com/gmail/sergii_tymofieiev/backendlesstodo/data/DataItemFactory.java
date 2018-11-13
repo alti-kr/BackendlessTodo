@@ -28,37 +28,6 @@ public class DataItemFactory {
     private static final String KEY_IS_DONE = "isDone";
     private static final String KEY_TIMESTAMP = "timestamp";
 
-    public static ArrayList<IDataItem> parseJSON(String response) {
-        ArrayList<IDataItem> items = new ArrayList<>();
-        IDataItem tDataItem;
-        if (!TextUtils.isEmpty(response)) {
-            try {
-                JSONArray dataSource = new JSONArray("{" + response + "}");
-                if (dataSource == null) {
-                    throw new JSONException("absent features teg");
-                }
-
-                for (int i = 0; i < dataSource.length(); i++) {
-                    if (dataSource.isNull(i)) {
-                        throw new JSONException("Wrong content in artist");
-                    }
-                    tDataItem = new DataItem();
-                    JSONObject item = dataSource.getJSONObject(i);
-                    tDataItem.setDone(item.getBoolean(KEY_IS_DONE));
-                    tDataItem.setNotes(item.getString(KEY_NOTES));
-                    tDataItem.setTimestamp(item.getLong(KEY_TIMESTAMP));
-                    tDataItem.setObjectId(item.getString(KEY_ID));
-                    items.add(tDataItem);
-
-                }
-            } catch (JSONException e) {
-                // TODO something
-                e.printStackTrace();
-            }
-        }
-        return items;
-    }
-
     public static ArrayList<IDataItem> parseResponse(List<Map> response) {
         ArrayList<IDataItem> items = new ArrayList<>();
         IDataItem tDataItem;

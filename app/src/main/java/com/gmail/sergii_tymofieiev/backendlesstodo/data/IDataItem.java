@@ -17,5 +17,6 @@ public interface IDataItem {
     void setDone(boolean checked);
 
     String getObjectId();
+
     void setObjectId(String objectId);
 }

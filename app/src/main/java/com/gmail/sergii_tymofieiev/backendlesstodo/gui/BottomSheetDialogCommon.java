@@ -88,7 +88,7 @@ public class BottomSheetDialogCommon extends BottomSheetDialogFragment implement
         button1.setOnClickListener(this);
         setCancelable(isCancelable);
 
-        if(!TextUtils.isEmpty(headerText)){
+        if (!TextUtils.isEmpty(headerText)) {
             headerTextView.setText(headerText);
         }
 
@@ -144,10 +144,12 @@ public class BottomSheetDialogCommon extends BottomSheetDialogFragment implement
             this.dialogClickListener = dialogClickListener;
             return this;
         }
+
         public Builder setHeaderText(String headerText) {
             this.headerText = headerText;
             return this;
         }
+
         public Builder setButtonText0(String buttonText) {
             this.buttonText0 = buttonText;
             return this;
