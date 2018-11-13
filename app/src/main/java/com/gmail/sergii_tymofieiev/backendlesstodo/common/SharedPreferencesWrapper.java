@@ -3,8 +3,8 @@ package com.gmail.sergii_tymofieiev.backendlesstodo.common;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-/**
- * @author Sergii Tymofieiev on 22.05.2017.
+/*
+ * @author Sergii Tymofieiev on 13.11.2018
  */
 
 public class SharedPreferencesWrapper {

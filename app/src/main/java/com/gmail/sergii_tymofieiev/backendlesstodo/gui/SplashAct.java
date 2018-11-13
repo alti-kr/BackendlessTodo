@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.gmail.sergii_tymofieiev.backendlesstodo.R;
-
+/*
+ * @author Sergii Tymofieiev on 13.11.2018
+ */
 public class SplashAct extends Activity implements ISplashView{
     ISplashViewPresenter presenter;
     @Override

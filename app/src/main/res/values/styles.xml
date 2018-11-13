@@ -19,4 +19,26 @@
     <style name="noAnimTheme" parent="android:Theme.Holo.Light.NoActionBar">
         <item name="android:windowAnimationStyle">@null</item>
     </style>
+    <style name="button_sheet" parent="@style/Widget.AppCompat.Button.Borderless">
+        <item name="android:paddingLeft">@dimen/dimen_10</item>
+        <item name="android:paddingRight">@dimen/dimen_10</item>
+        <item name="android:minWidth">@dimen/dimen_148</item>
+        <item name="android:minHeight">@dimen/dimen_48</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">top|center_horizontal</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+    <style name="button_sheet_green" parent="button_sheet">
+        <item name="android:background">@drawable/ripple_effect_green</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="button_sheet_green_wide" parent="button_sheet_green">
+        <item name="android:layout_width">match_parent</item>
+
+    </style>
+
+    <dimen name="dimen_148">148dp</dimen>
+    <dimen name="dimen_48">48dp</dimen>
 </resources>

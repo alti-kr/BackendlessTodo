@@ -8,8 +8,10 @@ import com.gmail.sergii_tymofieiev.backendlesstodo.App;
 import com.gmail.sergii_tymofieiev.backendlesstodo.common.Constants;
 import com.gmail.sergii_tymofieiev.backendlesstodo.common.SharedPreferencesWrapper;
 
-import org.w3c.dom.Text;
 
+/*
+ * @author Sergii Tymofieiev on 13.11.2018
+ */
 public class SplashViewPresenter implements ISplashViewPresenter {
     private static final int WHAT = 0;
     private static final long TIMEOUT = 3000;

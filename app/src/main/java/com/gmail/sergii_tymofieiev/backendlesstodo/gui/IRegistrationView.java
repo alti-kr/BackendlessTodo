@@ -1,9 +1,11 @@
 package com.gmail.sergii_tymofieiev.backendlesstodo.gui;
 
-import android.content.Intent;
 /*
  * @author Sergii Tymofieiev on 13.11.2018
  */
-public interface ISplashView {
-    void startView(Intent startIntent);
+
+public interface IRegistrationView {
+    void onOffButton(boolean onOff);
+
+    void finishRegistration();
 }
