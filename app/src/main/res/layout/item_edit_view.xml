@@ -1,0 +1,40 @@
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/dialog_sheet_inner_container">
+
+
+        <EditText
+            android:id="@+id/edit_text_item"
+            style="@style/textGrey_52_16dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_200"
+            android:layout_margin="@dimen/dimen_12"
+            android:layout_marginLeft="@dimen/dimen_20"
+            android:layout_marginTop="@dimen/dimen_50"
+            android:layout_marginRight="@dimen/dimen_20"
+            android:backgroundTint="@color/transparent"
+            android:gravity="left"
+            android:maxLength="500"
+            android:singleLine="false"
+            android:background="@color/white"
+            android:hint="@string/input_item_hint"
+            android:inputType="text" />
+
+
+
+    <CheckBox
+        android:id="@+id/item_done"
+        android:text="@string/input_item_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_16" />
+
+    <TextView
+        android:gravity="center_horizontal"
+        android:id="@+id/time_item"
+        style="@style/textGrey_52_16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

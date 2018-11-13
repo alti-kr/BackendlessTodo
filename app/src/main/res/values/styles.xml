@@ -60,6 +60,23 @@
         <item name="android:textSize">@dimen/dimen_14</item>
     </style>
 
-    <dimen name="dimen_14">14dp</dimen>
-    <dimen name="dimen_13">13dp</dimen>
+
+    <style name="button_sheet_grey" parent="button_sheet">
+        <item name="android:background">@drawable/ripple_effect_grey</item>
+        <item name="android:textColor">@color/grey_6d</item>
+    </style>
+
+    <style name="button_sheet_grey_wide" parent="button_sheet_grey">
+        <item name="android:layout_width">match_parent</item>
+    </style>
+    <style name="textGrey_52_16dp" parent="textGrey_52">
+        <item name="android:textSize">@dimen/dimen_16</item>
+    </style>
+    <style name="dialog_sheet_inner_container">
+        <item name="android:paddingBottom">@dimen/dimen_12</item>
+        <item name="android:paddingLeft">@dimen/dimen_16</item>
+        <item name="android:paddingRight">@dimen/dimen_16</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+    </style>
 </resources>

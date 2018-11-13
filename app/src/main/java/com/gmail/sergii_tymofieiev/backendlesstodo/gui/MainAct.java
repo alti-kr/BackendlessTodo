@@ -3,6 +3,7 @@ package com.gmail.sergii_tymofieiev.backendlesstodo.gui;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
@@ -86,5 +87,10 @@ public class MainAct extends AppCompatActivity implements IMainView{
 
     private void setItemMenuChecked(MenuItem item){
         item.setChecked(true);
+    }
+
+    @Override
+    public FragmentActivity getActivity() {
+        return this;
     }
 }
