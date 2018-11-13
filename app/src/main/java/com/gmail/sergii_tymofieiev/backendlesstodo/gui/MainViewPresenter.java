@@ -1,16 +1,30 @@
 package com.gmail.sergii_tymofieiev.backendlesstodo.gui;
 
+import android.provider.ContactsContract;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import com.backendless.Backendless;
+import com.backendless.IDataStore;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
+import com.backendless.persistence.BackendlessDataQuery;
+import com.backendless.persistence.DataQueryBuilder;
+import com.backendless.persistence.QueryOptions;
 import com.gmail.sergii_tymofieiev.backendlesstodo.App;
 import com.gmail.sergii_tymofieiev.backendlesstodo.R;
 import com.gmail.sergii_tymofieiev.backendlesstodo.common.Constants;
 import com.gmail.sergii_tymofieiev.backendlesstodo.common.SharedPreferencesWrapper;
 import com.gmail.sergii_tymofieiev.backendlesstodo.common.Utils;
+import com.gmail.sergii_tymofieiev.backendlesstodo.data.DataItem;
+import com.gmail.sergii_tymofieiev.backendlesstodo.data.DataItemFactory;
 import com.gmail.sergii_tymofieiev.backendlesstodo.data.IDataItem;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /*
  * @author Sergii Tymofieiev on 13.11.2018
@@ -24,6 +38,9 @@ public class MainViewPresenter implements IMainViewPresenter {
 
     public MainViewPresenter(IMainView iView){
         this.iView = iView;
+        Backendless.setUrl(Constants.SERVER_URL);
+        Backendless.initApp(App.getContext(), Constants.APPLICATION_ID, Constants.API_KEY);
+        Backendless.Persistence.mapTableToClass( "InvertersData", DataItem.class );
     }
 
 
@@ -54,6 +71,34 @@ public class MainViewPresenter implements IMainViewPresenter {
     @Override
     public void onFilterChanged(int indFilter) {
         SharedPreferencesWrapper.putInt(App.getContext(),Constants.SP_KEY_FILTER_INDEX,indFilter);
+    }
+
+    @Override
+    public void makeContent() {
+        DataQueryBuilder dataQueryBuilder = DataItemFactory.getDataQueryBuilder(getCheckedMenuInd(), DataItemFactory.SORT_DIRECTION.TIME_ASC);
+
+        Backendless.Data.of(Constants.DATA_TABLE_NAME).find( dataQueryBuilder,
+                new AsyncCallback<List<Map>>()
+                {
+                    @Override
+                    public void handleResponse( List<Map> response ){
+                        processResponse(response);
+
+                    }
+
+                    @Override
+                    public void handleFault( BackendlessFault fault ){
+                        // TODO something
+                        Log.d("My_log","handleFault = "+ fault);
+                        // use the getCode(), getMessage() or getDetail() on the fault object
+                        // to see the details of the error
+                    }
+                });
+    }
+
+    private void processResponse(List<Map> response) {
+        ArrayList<IDataItem> itemsList = DataItemFactory.parseResponse(response);
+        itemsListAdapter.addItems(itemsList);
     }
 
     @Override
@@ -128,9 +173,38 @@ public class MainViewPresenter implements IMainViewPresenter {
     }
 
     private void updateItem(IDataItem dataItem) {
+        editView = null;
         Log.d("My_log","dataItem = "+ dataItem.getNotes());
+        final IDataStore<Map> testTableDataStore = Backendless.Data.of(Constants.DATA_TABLE_NAME);
+        testTableDataStore.save(DataItemFactory.dataItemToMap(dataItem), new AsyncCallback<Map>() {
+            @Override
+            public void handleResponse(final Map response) {
+               // subscribeForObjectUpdate(response, testTableDataStore);
+
+//                updateButton.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        updateValue(response, testTableDataStore);
+//                    }
+//                });
+
+                Log.d("My_log","Object has been saved in the real-time database");
+                changeSavedValue(response);
+
+            }
+
+            @Override
+            public void handleFault(BackendlessFault fault) {
+               // MainActivity.this.handleFault(fault);
+            }
+        });
+    }
+
+    private void changeSavedValue(Map response) {
+        Log.d("My_log","response = "+ response);
     }
 
     private void onDialogCancel() {
+        editView = null;
     }
 }

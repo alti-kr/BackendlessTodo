@@ -8,11 +8,14 @@ public interface IDataItem {
 
     boolean isDone();
 
-    Long getDate();
+    Long getTimestamp();
 
     void setNotes(String s);
 
     void setTimestamp(long l);
 
     void setDone(boolean checked);
+
+    String getObjectId();
+    void setObjectId(String objectId);
 }

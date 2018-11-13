@@ -7,7 +7,7 @@ public class DataItem implements IDataItem {
     private String notes;
     private boolean isDone;
     private long timestamp;
-    private String extId;
+    private String objectId;
     @Override
     public String getNotes() {
         return notes;
@@ -19,7 +19,7 @@ public class DataItem implements IDataItem {
     }
 
     @Override
-    public Long getDate() {
+    public Long getTimestamp() {
         return timestamp;
     }
 
@@ -35,11 +35,11 @@ public class DataItem implements IDataItem {
         this.timestamp = timestamp;
     }
 
-    public String getExtId() {
-        return extId;
+    public String getObjectId() {
+        return objectId;
     }
 
-    public void setExtId(String extId) {
-        this.extId = extId;
+    public void setObjectId(String extId) {
+        this.objectId = extId;
     }
 }

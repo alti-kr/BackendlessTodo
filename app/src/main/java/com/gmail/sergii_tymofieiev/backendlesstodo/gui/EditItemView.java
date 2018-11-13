@@ -37,7 +37,7 @@ public class EditItemView extends BottomSheetDialogCommon {
         if(dataItem != null){
             notesView.setText(dataItem.getNotes());
             checkBoxView.setChecked(dataItem.isDone());
-            dateView.setText(DateUtils.getFormattedDateAsString(DateUtils.DateFormatCustom.ddMMyyyy_HHmm, dataItem.getDate()));
+            dateView.setText(DateUtils.getFormattedDateAsString(DateUtils.DateFormatCustom.ddMMyyyy_HHmm, dataItem.getTimestamp()));
         }else {
             dateView.setText(DateUtils.getFormattedDateAsString(DateUtils.DateFormatCustom.ddMMyyyy_HHmm, System.currentTimeMillis()));
         }

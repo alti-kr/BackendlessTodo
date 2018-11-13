@@ -93,4 +93,10 @@ public class MainAct extends AppCompatActivity implements IMainView{
     public FragmentActivity getActivity() {
         return this;
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.makeContent();
+    }
 }
