@@ -46,6 +46,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/dimen_20"
             android:layout_marginRight="30dp"
+            android:enabled="false"
             android:scaleType="fitXY" />
 
 

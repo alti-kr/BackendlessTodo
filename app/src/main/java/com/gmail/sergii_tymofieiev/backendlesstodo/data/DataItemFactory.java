@@ -1,8 +1,6 @@
 package com.gmail.sergii_tymofieiev.backendlesstodo.data;
 
-import android.support.design.widget.BottomSheetDialog;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.backendless.persistence.BackendlessDataQuery;
 import com.backendless.persistence.DataQueryBuilder;
@@ -33,9 +31,9 @@ public class DataItemFactory {
     public static ArrayList<IDataItem> parseJSON(String response) {
         ArrayList<IDataItem> items = new ArrayList<>();
         IDataItem tDataItem;
-        if(!TextUtils.isEmpty(response)) {
+        if (!TextUtils.isEmpty(response)) {
             try {
-                JSONArray dataSource = new JSONArray("{"+response+"}");
+                JSONArray dataSource = new JSONArray("{" + response + "}");
                 if (dataSource == null) {
                     throw new JSONException("absent features teg");
                 }
@@ -64,12 +62,12 @@ public class DataItemFactory {
     public static ArrayList<IDataItem> parseResponse(List<Map> response) {
         ArrayList<IDataItem> items = new ArrayList<>();
         IDataItem tDataItem;
-        for(Map item: response){
+        for (Map item : response) {
             tDataItem = new DataItem();
             tDataItem.setDone((Boolean) item.get(KEY_IS_DONE));
             tDataItem.setNotes((String) item.get(KEY_NOTES));
             tDataItem.setTimestamp(((Double) item.get(KEY_TIMESTAMP)).longValue());
-            tDataItem.setObjectId((String)item.get(KEY_ID));
+            tDataItem.setObjectId((String) item.get(KEY_ID));
             items.add(tDataItem);
 
         }
@@ -77,7 +75,10 @@ public class DataItemFactory {
     }
 
 
-    public enum SORT_DIRECTION{TIME_DESC, TIME_ASC};
+    public enum SORT_DIRECTION {TIME_DESC, TIME_ASC}
+
+    ;
+
     public static HashMap dataItemToMap(IDataItem dataItem) {
         if (dataItem == null) {
             return null;
@@ -89,58 +90,53 @@ public class DataItemFactory {
         map.put(KEY_NOTES, dataItem.getNotes());
         map.put(KEY_IS_DONE, dataItem.isDone());
         map.put(KEY_TIMESTAMP, dataItem.getTimestamp());
-        map.put(KEY_INNER_OWNER, SharedPreferencesWrapper.getString(App.getContext(),Constants.SP_KEY_PHONE_AS_HASH,""));
+        map.put(KEY_INNER_OWNER, SharedPreferencesWrapper.getString(App.getContext(), Constants.SP_KEY_PHONE_AS_HASH, ""));
         return map;
 
     }
 
-    public static BackendlessDataQuery getBackendlessDataQuery (int filter, SORT_DIRECTION sortDirection) {
-        if(sortDirection == null){
+    public static BackendlessDataQuery getBackendlessDataQuery(int filter, SORT_DIRECTION sortDirection) {
+        if (sortDirection == null) {
             sortDirection = SORT_DIRECTION.TIME_DESC;
         }
         QueryOptions queryOptions = new QueryOptions();
         List<String> sortBy = new ArrayList<String>();
-        if(sortDirection == SORT_DIRECTION.TIME_DESC){
-            sortBy.add(KEY_TIMESTAMP+" DESC" );
-        }else {
+        if (sortDirection == SORT_DIRECTION.TIME_DESC) {
+            sortBy.add(KEY_TIMESTAMP + " DESC");
+        } else {
             sortBy.add(KEY_TIMESTAMP);
         }
-        queryOptions.setSortBy( sortBy );
+        queryOptions.setSortBy(sortBy);
 
-        String whereClause = KEY_INNER_OWNER +" = "+SharedPreferencesWrapper.getString(App.getContext(),Constants.SP_KEY_PHONE_AS_HASH,"");
-        if(filter != 0){
-            whereClause = whereClause + " and "+ KEY_IS_DONE +" = " +(filter==2);
+        String whereClause = KEY_INNER_OWNER + " = " + SharedPreferencesWrapper.getString(App.getContext(), Constants.SP_KEY_PHONE_AS_HASH, "");
+        if (filter != 0) {
+            whereClause = whereClause + " and " + KEY_IS_DONE + " = " + (filter == 2);
         }
         BackendlessDataQuery dataQuery = new BackendlessDataQuery();
         dataQuery.setWhereClause(whereClause);
-        dataQuery.setQueryOptions( queryOptions );
+        dataQuery.setQueryOptions(queryOptions);
         return dataQuery;
     }
 
     public static DataQueryBuilder getDataQueryBuilder(int filter, SORT_DIRECTION sortDirection) {
-        if(sortDirection == null){
+        if (sortDirection == null) {
             sortDirection = SORT_DIRECTION.TIME_DESC;
         }
 
 
         String sortBy;
-        if(sortDirection == SORT_DIRECTION.TIME_DESC){
-            sortBy = KEY_TIMESTAMP+" DESC";
-        }else {
+        if (sortDirection == SORT_DIRECTION.TIME_DESC) {
+            sortBy = KEY_TIMESTAMP + " DESC";
+        } else {
             sortBy = KEY_TIMESTAMP;
         }
-        String whereClause = KEY_INNER_OWNER +" = '"+SharedPreferencesWrapper.getString(App.getContext(),Constants.SP_KEY_PHONE_AS_HASH,"")+"'";
-        if(filter != 0){
-            whereClause = whereClause + " and "+ KEY_IS_DONE +" = " +(filter==2);
+        String whereClause = KEY_INNER_OWNER + " = '" + SharedPreferencesWrapper.getString(App.getContext(), Constants.SP_KEY_PHONE_AS_HASH, "") + "'";
+        if (filter != 0) {
+            whereClause = whereClause + " and " + KEY_IS_DONE + " = " + (filter == 2);
         }
-
-        Log.d("My_log","sortBy = " + sortBy);
-        Log.d("My_log","whereClause = " + whereClause);
         DataQueryBuilder dataQueryBuilder = DataQueryBuilder.create();
-        //dataQueryBuilder.addProperty(whereClause);
         dataQueryBuilder.setWhereClause(whereClause);
         dataQueryBuilder.addSortBy(sortBy);
-        Log.d("My_log","dataQueryBuilder = " + dataQueryBuilder.toString());
         return dataQueryBuilder;
     }
 

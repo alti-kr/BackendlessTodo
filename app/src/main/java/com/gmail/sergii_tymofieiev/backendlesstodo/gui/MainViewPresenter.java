@@ -10,9 +10,7 @@ import com.backendless.Backendless;
 import com.backendless.IDataStore;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
-import com.backendless.persistence.BackendlessDataQuery;
 import com.backendless.persistence.DataQueryBuilder;
-import com.backendless.persistence.QueryOptions;
 import com.gmail.sergii_tymofieiev.backendlesstodo.App;
 import com.gmail.sergii_tymofieiev.backendlesstodo.R;
 import com.gmail.sergii_tymofieiev.backendlesstodo.common.Constants;
@@ -72,6 +70,7 @@ public class MainViewPresenter implements IMainViewPresenter {
     @Override
     public void onFilterChanged(int indFilter) {
         SharedPreferencesWrapper.putInt(App.getContext(),Constants.SP_KEY_FILTER_INDEX,indFilter);
+        makeContent();
     }
 
     @Override
@@ -131,12 +130,14 @@ public class MainViewPresenter implements IMainViewPresenter {
 
                 @Override
                 public void onSwiped(Object itemData, int position) {
-                    //rejectExchange((ExchangeJettonAdapter.ExchangeJettonItem) itemData);
+                    removeItem((IDataItem) itemData);
                 }
             };
         }
         return recyclerItemTouchHelperListener;
     }
+
+
 
     private void onFabClick() {
         showEditView(null);
@@ -183,40 +184,56 @@ public class MainViewPresenter implements IMainViewPresenter {
                 .build();
         FragmentManager fragmentManager = iView.getActivity().getSupportFragmentManager();
         if (fragmentManager != null) {
-            editView.show(fragmentManager, "BottomConfirmPhoneDialog");
+            editView.show(fragmentManager, "BottomDialog");
         }
     }
 
     private void updateItem(IDataItem dataItem) {
         editView = null;
-        Log.d("My_log","dataItem = "+ dataItem.getNotes());
         final IDataStore<Map> testTableDataStore = Backendless.Data.of(Constants.DATA_TABLE_NAME);
         testTableDataStore.save(DataItemFactory.dataItemToMap(dataItem), new AsyncCallback<Map>() {
             @Override
             public void handleResponse(final Map response) {
-               // subscribeForObjectUpdate(response, testTableDataStore);
 
-//                updateButton.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        updateValue(response, testTableDataStore);
-//                    }
-//                });
-
-                Log.d("My_log","Object has been saved in the real-time database");
                 changeSavedValue(response);
 
             }
 
             @Override
             public void handleFault(BackendlessFault fault) {
-               // MainActivity.this.handleFault(fault);
+               // TODO something
+            }
+        });
+    }
+
+    private void removeItem(IDataItem itemData) {
+        itemsListAdapter.removeItem(itemData);
+        final IDataStore<Map> testTableDataStore = Backendless.Data.of(Constants.DATA_TABLE_NAME);
+        testTableDataStore.save( DataItemFactory.dataItemToMap(itemData), new AsyncCallback<Map>() {
+            public void handleResponse( Map savedContact )
+            {
+                testTableDataStore.remove(savedContact, new AsyncCallback<Long>() {
+                    @Override
+                    public void handleResponse(Long response) {
+
+                    }
+
+                    @Override
+                    public void handleFault(BackendlessFault fault) {
+
+                    }
+                });
+            }
+            @Override
+            public void handleFault( BackendlessFault fault )
+            {
+                // TODO something
             }
         });
     }
 
     private void changeSavedValue(Map response) {
-        Log.d("My_log","response = "+ response);
+        makeContent();
     }
 
     private void onDialogCancel() {

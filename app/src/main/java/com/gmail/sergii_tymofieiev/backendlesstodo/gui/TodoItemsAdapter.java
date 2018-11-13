@@ -44,7 +44,9 @@ public class TodoItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             holder.hRightTextView.setText(R.string.btn_delete);
         }
     }
-
+    public void removeItem(IDataItem item) {
+        removeItem(itemsList.indexOf(item));
+    }
     @Override
     public int getItemCount() {
         return itemsList==null?0:itemsList.size();
