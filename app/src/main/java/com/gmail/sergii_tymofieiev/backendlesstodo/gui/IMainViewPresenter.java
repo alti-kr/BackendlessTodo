@@ -1,5 +1,6 @@
 package com.gmail.sergii_tymofieiev.backendlesstodo.gui;
 
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /*
@@ -13,4 +14,7 @@ public interface IMainViewPresenter {
     int getCheckedMenuInd();
 
     void onFilterChanged(int indFilter);
+
+    RecyclerView.Adapter getItemsListAdapter();
+    RecyclerItemTouchHelper.RecyclerItemTouchHelperListener getRecyclerItemTouchHelperListener();
 }

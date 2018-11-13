@@ -41,6 +41,25 @@
 
     </style>
 
-    <dimen name="dimen_148">148dp</dimen>
-    <dimen name="dimen_48">48dp</dimen>
+    <style name="textWhite">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="textWhite_13dp" parent="textWhite">
+        <item name="android:textSize">@dimen/dimen_13</item>
+    </style>
+
+    <style name="textGrey_52">
+        <item name="android:textColor">@color/grey_52</item>
+    </style>
+
+    <style name="textGrey_52_14dp_bold" parent="textGrey_52">
+        <item name="android:textSize">@dimen/dimen_14</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="textGrey_52_14dp" parent="textGrey_52">
+        <item name="android:textSize">@dimen/dimen_14</item>
+    </style>
+
+    <dimen name="dimen_14">14dp</dimen>
+    <dimen name="dimen_13">13dp</dimen>
 </resources>

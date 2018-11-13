@@ -1,5 +1,6 @@
 package com.gmail.sergii_tymofieiev.backendlesstodo.gui;
 
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
@@ -11,8 +12,11 @@ import com.gmail.sergii_tymofieiev.backendlesstodo.common.SharedPreferencesWrapp
  * @author Sergii Tymofieiev on 13.11.2018
  */
 public class MainViewPresenter implements IMainViewPresenter {
+    private TodoItemsAdapter itemsListAdapter;
     private IMainView iView;
     private View.OnClickListener fabOnClickListener;
+    private RecyclerItemTouchHelper.RecyclerItemTouchHelperListener recyclerItemTouchHelperListener;
+
     public MainViewPresenter(IMainView iView){
         this.iView = iView;
     }
@@ -45,6 +49,28 @@ public class MainViewPresenter implements IMainViewPresenter {
     @Override
     public void onFilterChanged(int indFilter) {
         SharedPreferencesWrapper.putInt(App.getContext(),Constants.SP_KEY_FILTER_INDEX,indFilter);
+    }
+
+    @Override
+    public RecyclerView.Adapter getItemsListAdapter() {
+        if(itemsListAdapter == null){
+            itemsListAdapter = new TodoItemsAdapter();
+        }
+        return itemsListAdapter;
+    }
+
+    @Override
+    public RecyclerItemTouchHelper.RecyclerItemTouchHelperListener getRecyclerItemTouchHelperListener() {
+        if (recyclerItemTouchHelperListener == null) {
+            recyclerItemTouchHelperListener = new RecyclerItemTouchHelper.RecyclerItemTouchHelperListener() {
+
+                @Override
+                public void onSwiped(Object itemData, int position) {
+                    //rejectExchange((ExchangeJettonAdapter.ExchangeJettonItem) itemData);
+                }
+            };
+        }
+        return recyclerItemTouchHelperListener;
     }
 
     private void onFabClick() {

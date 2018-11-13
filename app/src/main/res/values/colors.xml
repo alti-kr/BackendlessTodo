@@ -3,8 +3,12 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-
+    <color name="grey_fa">#FFFAFAFA</color>
+    <color name="grey_f5">#FFF5F5F5</color>
+    <color name="transparent">@android:color/transparent</color>
     <color name="white">#FFFFFFFF</color>
     <color name="green_9b">#FF3FC39B</color>
     <color name="green_7f">#FF37A77F</color>
+    <color name="grey_52">#FF525252</color>
+    <color name="orange_5с">#FFFF685C</color>
 </resources>
