@@ -1,0 +1,30 @@
+﻿Backendless Corp.
+2591 Dallas Parkway, Ste 300
+Frisco, TX 75034
+(408) 792-7757
+Backendless Android Test
+Updated: November 2nd 2018
+OVERVIEW
+Develop a basic TODO-app in Java/Android using the Backendless APIs and the backend storage. 
+GOALS
+1. Demonstrate your knowledge of the Java programming language and the Android operating system;
+2. Demonstrate your understanding of third-party API usage;
+3. Deliver a complete application with instructions for how to run it;
+SPECIFICATIONS
+Functionality
+The basic TODO-app is a CRUD application with the following functional requirements:
+1. Create and save a TODO item
+2. Read all TODO items
+3. Update the selected TODO item
+4. Delete (mark “completed”) a TODO item
+Additional points for setting up an automatic cleanup of the “completed” TODO items after some configurable time period.
+Technical requirements
+The TODO-app is purely a client-side app, no backend should be written for that. As a backend storage, use Backendless Data Service. You can use either Backendless SDK for Android/Java or Backendless REST API. Here is a relevant documentation page: 
+Android SDK: http://backendless.com/docs/android/doc.html#dynanchor3
+REST API: http://backendless.com/docs/rest/doc.html#dynanchor3. 
+If you decide to implement with the REST API, you are free to use any HTTP library or alternatively implement the HTTP calls by the means of JDK. The goal is the conciseness and readability of the code, not the final app size.
+Use public Git (e.g. GitHub) and develop the app iteratively with commits describing the steps. It would be a plus if the git history nicely showed your development and thinking process. 
+Keep in mind that the design of your app should be open to changes. For example, the further requirements may include sharing a todo item (sending it to someone), setting the priorities to the items and sorting them in the list accordingly, setting the deadline for the item and so on. So your design should be simple and assume as little constraints as possible. The best way is to consider the project as an MVP (minimum viable product), which may and will change in unexpected ways, but with the exception that the code should be as clean as possible.
+If you decide to implement automatic cleanup of the completed items, the Timers functionality is recommended to use.
+User Interface
+You are not required to write any sophisticated user interface implementation, however, clean, easy to read code is always a plus.
