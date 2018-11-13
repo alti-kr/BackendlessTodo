@@ -14,7 +14,7 @@ import com.gmail.sergii_tymofieiev.backendlesstodo.common.SharedPreferencesWrapp
  */
 public class SplashViewPresenter implements ISplashViewPresenter {
     private static final int WHAT = 0;
-    private static final long TIMEOUT = 3000;
+    private static final long TIMEOUT = 1000;
     ISplashView iView;
     public SplashViewPresenter(ISplashView iView){
         this.iView = iView;
