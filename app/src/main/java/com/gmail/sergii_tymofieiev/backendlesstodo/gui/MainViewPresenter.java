@@ -35,6 +35,7 @@ public class MainViewPresenter implements IMainViewPresenter {
     private View.OnClickListener fabOnClickListener;
     private RecyclerItemTouchHelper.RecyclerItemTouchHelperListener recyclerItemTouchHelperListener;
     private EditItemView editView;
+    private TodoItemsAdapter.ItemsAdapterListener adapterListListener;
 
     public MainViewPresenter(IMainView iView){
         this.iView = iView;
@@ -99,14 +100,28 @@ public class MainViewPresenter implements IMainViewPresenter {
     private void processResponse(List<Map> response) {
         ArrayList<IDataItem> itemsList = DataItemFactory.parseResponse(response);
         itemsListAdapter.addItems(itemsList);
+        itemsListAdapter.notifyDataSetChanged();
     }
 
     @Override
     public RecyclerView.Adapter getItemsListAdapter() {
         if(itemsListAdapter == null){
             itemsListAdapter = new TodoItemsAdapter();
+            itemsListAdapter.setItemsAdapterListener(getAdapterListListener());
         }
         return itemsListAdapter;
+    }
+
+    private TodoItemsAdapter.ItemsAdapterListener getAdapterListListener() {
+        if(adapterListListener == null){
+            adapterListListener = new TodoItemsAdapter.ItemsAdapterListener() {
+                @Override
+                public void onItemClick(Object itemData, int position) {
+                    showEditView((IDataItem) itemData);
+                }
+            };
+        }
+        return adapterListListener;
     }
 
     @Override

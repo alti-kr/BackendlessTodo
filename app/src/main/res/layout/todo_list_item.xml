@@ -39,8 +39,8 @@
         android:tag="front">
 
 
-        <ImageView
-            android:id="@+id/item_image"
+        <CheckBox
+            android:id="@+id/item_done"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_gravity="center_vertical"

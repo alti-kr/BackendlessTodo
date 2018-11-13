@@ -11,5 +11,6 @@
     <string name="menu_filter_live">live</string>
     <string name="menu_filter_done">done</string>
     <string name="btn_cancel">CANCEL</string>
+    <string name="btn_delete">Delete</string>
     <string name="edit_item_header">Input or edit todo</string>
 </resources>
